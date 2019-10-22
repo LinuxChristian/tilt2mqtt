@@ -77,9 +77,13 @@ Using the MQTT sensor in home assistant you can how listen for new values and cr
 
 Notice that here the calibration value is added directly to the value template in home assistant.
 
+![Home Assistant - Brewing](http://fredborg-braedstrup.dk/images/HomeAssistant-brewing.png)
+
 # Using with Brewers friend
 
 Using the following [gist](https://gist.github.com/LinuxChristian/c00486eaee5a55daa790122ac4236c11) it is possible to stream the calibrated values from home assistant to the brewers friend API via a simple Python script.
+
+![Brewers Friend fermentation overview](http://fredborg-braedstrup.dk/images/BrewersFriend-fermentation.png)
 
 # Note
 
