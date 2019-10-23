@@ -31,7 +31,7 @@ The raw values read from the Tilt are uncalibrated and should be calibrated befo
   * Send payload to the MQTT server
  3. Stop listening and sleep for X minutes before getting a new measurement
 
-This script has been tested on Linux.
+This script has been tested on Linux. By default the script will create a log file in the path `/tmp/tilt.log`.
 
 <a name="howtorun"/>
 
@@ -51,16 +51,16 @@ python tilt2mqtt.py
 
 The code should now listen for your Tilt device and report values on the MQTT topic that matches your Tilt color.
 
-You can use the mosquitto commandline tool (on Linux) to listen for all messages,
+You can use the mosquitto commandline tool (on Linux) to listen for colors or the build-in MQTT client in Home Assistant,
 
 ```bash
-mosquitto_sub -t '#'
+mosquitto_sub -t 'tilt/#'
 ```
 
-To listen for measurements from Orange devices run,
+To listen for measurements only from Orange devices run,
 
 ```bash
-mosquitto_sub -t 'Orange/#'
+mosquitto_sub -t 'tilt/Orange/#'
 ```
 
 If your MQTT server is not running on the localhost you can set the following environmental variables,
