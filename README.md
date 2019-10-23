@@ -1,6 +1,17 @@
 
 # Tilt2MQTT - Stream the Tilt Hydrometer to MQTT
 
+##### Table of Contents
+1. [Inroduction](#intro)
+2. [How to run](#howtorun)
+3. [Running as a service](#runasservice)
+4. [Integrate with Home Assistant](#intwithhass)
+5. [Integrate with Brewers Friend](#brewers)
+
+<a name="intro"/>
+
+# Introduction
+
 **Note:** This package requires a MQTT server. To get one read [here](https://philhawthorne.com/setting-up-a-local-mosquitto-server-using-docker-for-mqtt-communication/).
 
 Wrapper for reading messages from [Tilt wireless hydrometer](https://tilthydrometer.com/) and forwarding them to MQTT topics. 
@@ -21,6 +32,8 @@ The raw values read from the Tilt are uncalibrated and should be calibrated befo
  3. Stop listening and sleep for X minutes before getting a new measurement
 
 This script has been tested on Linux.
+
+<a name="howtorun"/>
 
 # How to run
 
@@ -59,6 +72,8 @@ If your MQTT server is not running on the localhost you can set the following en
 | MQTT_AUTH    |          NONE
 | MQTT_DEBUG   |    TRUE      
 
+<a name="runasservice"/>
+
 # Running tilt2MQTT as a service on Linux
 
 If you would like to run tilt2MQTT as a service on Linux using systemd add this file to a systemd path (Normally /lib/systemd/system/tilt2mqtt.service or /etc/systemd/system/tilt2mqtt.service)
@@ -86,6 +101,8 @@ Remember to change the PATH variable in the script above. Then update your servi
 sudo systemctl reload-daemon
 ```
 
+<a name="intwithhass"/>
+
 # Using tilt2MQTT with Home assistant
 
 Using the MQTT sensor in home assistant you can now listen for new values and create automations rules based on the values (e.g. start a heater if the temperature is too low).
@@ -106,6 +123,8 @@ Using the MQTT sensor in home assistant you can now listen for new values and cr
 Notice that here the calibration value is added directly to the value template in home assistant. The calibration parameters are estimated following the [Tilt guide](https://tilthydrometer.com/blogs/news/adding-calibration-points-within-your-tilt-app).
 
 ![Home Assistant - Brewing](http://fredborg-braedstrup.dk/images/HomeAssistant-brewing.png)
+
+<a name="brewers"/>
 
 # Using with Brewers friend
 
