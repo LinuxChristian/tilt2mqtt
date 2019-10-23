@@ -1,24 +1,26 @@
 #!/usr/bin/env python
 """
-Wrapper for reading messages from Tilt hydrometer and sending them via MQTT
+Wrapper for reading messages from Tilt wireless hydrometer and forwarding them to MQTT topics. 
 
-This script listen for messages from the Tilt hydrometer via bluetooth.
-The devices act as a simple IBeacon sending the following two values,
+The device acts as a simple Bluetooth IBeacon sending the following two values,
 
  * major: Temperature in Farenheit
  * minor: Specific gravity
 
-The script works a follows,
+The raw values read from the Tilt are uncalibrated and should be calibrated before use. The script works a follows,
 
- * Listen for Tilt devices filtered by the TILTS global variable
- * If found the callback is triggered
+ 1. Listen for local IBeacon devices
+ 2. If found the callback is triggered
   * Translate the UUID to a Tilt color
   * Extract and convert measurements from the device
   * Construct a JSON payload
   * Send payload to the MQTT server
- * Stop listening and sleep for X minutes before getting a new measurement
+ 3. Stop listening and sleep for X minutes before getting a new measurement
+
+This script has been tested on Linux.
 
 # How to run
+
 First install Python dependencies
 
  pip install beacontools paho-mqtt requests
@@ -37,6 +39,11 @@ import json
 from beacontools import BeaconScanner, IBeaconFilter, parse_packet, const
 import paho.mqtt.publish as publish
 import requests
+
+#
+# Constants
+#
+sleep_interval = 60*30  # How often to listen for new messages in seconds
 
 lg.basicConfig(level=lg.INFO)
 LOG = lg.getLogger()
@@ -76,9 +83,6 @@ config = {
         'auth':os.getenv('MQTT_AUTH', None),
         'debug': os.getenv('MQTT_DEBUG', True),
 }
-
-# How often to listen for new messages
-sleep_interval = 60*30
 
 def callback(bt_addr, rssi, packet, additional_info):
     """Message recieved from tilt
