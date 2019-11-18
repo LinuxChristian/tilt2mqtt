@@ -37,10 +37,16 @@ This script has been tested on Linux. By default the script will create a log fi
 
 # How to run
 
-First install Python dependencies
+If you are on Linux first install the bluetooth packages,
+
+```bash
+sudo apt-get install libbluetooth-dev
+```
+
+Then install Python dependencies
 
 ```
-pip install beacontools paho-mqtt requests
+pip install beacontools paho-mqtt requests pybluez
 ```
 
 Run the script,
@@ -48,6 +54,8 @@ Run the script,
 ```
 python tilt2mqtt.py
 ```
+
+**Note**: If you get a permission error try running the script as root.
 
 The code should now listen for your Tilt device and report values on the MQTT topic that matches your Tilt color.
 
